@@ -4,8 +4,8 @@ import { Sprout, Sun, Shield, Bomb, Snowflake, Zap } from 'lucide-react';
 export const GRID_ROWS = 5;
 export const GRID_COLS = 9;
 export const TICK_RATE = 100; // Game loop interval in ms
-export const ZOMBIE_SPAWN_RATE_INITIAL = 5000;
-export const SUN_SPAWN_RATE = 8000;
+export const ZOMBIE_SPAWN_RATE_INITIAL = 10000; // Increased from 5000ms to 10s for slower start
+export const SUN_SPAWN_RATE = 4000; // Decreased from 8000ms to 4s for faster resources
 export const LEVEL_DURATION = 120000; // 2 minutes to win
 
 export const PLANT_CONFIGS: Record<EntityType, EntityConfig> = {
@@ -27,7 +27,7 @@ export const PLANT_CONFIGS: Record<EntityType, EntityConfig> = {
     cost: 50,
     cooldown: 3000,
     hp: 80,
-    attackRate: 10000, // Generates sun
+    attackRate: 5000, // Buffed from 10000ms to 5s
     icon: Sun,
     color: "text-yellow-500",
     description: "Produces extra sun"

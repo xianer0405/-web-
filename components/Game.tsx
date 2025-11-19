@@ -128,12 +128,20 @@ export default function Game() {
     }
     
     // Zombies (Integrated)
-    const currentSpawnRate = Math.max(1000, ZOMBIE_SPAWN_RATE_INITIAL - (progress * 40));
+    // Initial Rate: 10000ms. Final Rate goal: ~2000ms.
+    // Formula: 10000 - (progress * 80) => At 100, 10000 - 8000 = 2000.
+    const currentSpawnRate = Math.max(2000, ZOMBIE_SPAWN_RATE_INITIAL - (progress * 80));
+    
     if (now - lastZombieSpawnRef.current > currentSpawnRate && progress < 100) {
       const row = Math.floor(Math.random() * GRID_ROWS);
       const types = [ZombieType.Normal, ZombieType.Normal, ZombieType.Conehead, ZombieType.Buckethead];
-      // Introduce variety earlier
-      const typeIndex = Math.floor(Math.random() * (progress > 15 ? (progress > 50 ? 4 : 3) : 2));
+      
+      // Ramp up variety based on progress
+      let typeIndex = 0;
+      if (progress > 10) typeIndex = Math.floor(Math.random() * 2); // Normal
+      if (progress > 30) typeIndex = Math.floor(Math.random() * 3); // + Conehead
+      if (progress > 60) typeIndex = Math.floor(Math.random() * 4); // + Buckethead
+      
       const type = types[typeIndex];
       const config = ZOMBIE_CONFIGS[type];
 
@@ -161,7 +169,7 @@ export default function Game() {
       
       // Sunflower
       if (plant.type === EntityType.Sunflower) {
-         if (now - plant.lastActionTime > (config.attackRate || 10000)) {
+         if (now - plant.lastActionTime > (config.attackRate || 5000)) {
            const xPos = (plant.col / GRID_COLS) * 100;
            const yPos = (plant.row / GRID_ROWS) * 100;
            spawnSun(xPos + 2, yPos + 2); 

@@ -1,0 +1,5 @@
+{
+  "name": "Plants vs. Zombies: React Edition",
+  "description": "A web-based recreation of the classic tower defense game using React, TypeScript, and Tailwind CSS, featuring a Gemini-powered strategy assistant.",
+  "requestFramePermissions": []
+}
